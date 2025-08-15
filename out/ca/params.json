@@ -1,0 +1,12 @@
+{
+  "rules": [
+    30,
+    110
+  ],
+  "size": 256,
+  "steps": 1000,
+  "random_init": false,
+  "window_rows": 12,
+  "n_real": 5,
+  "seed": 0
+}
