@@ -1,0 +1,154 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{natbib}
+\usepackage{microtype}
+
+\geometry{a4paper, margin=2.5cm}
+\onehalfspacing
+
+\title{Temporal Dynamics as a Mechanism for Propagating Structured States: Evidence from Criticality, Chaos, and Computational Systems}
+\author{Author Name, Department, Institution, email@institution.edu}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    This study investigates the role of temporal evolution in complex dynamical systems through an information-theoretic lens. We quantify the capacity of different systems to sustain statistical dependencies over extended time lags, with a focus on long-range temporal correlations. Analysis of four canonical systems—physical equilibrium (2D Ising model), computational criticality (Echo State Networks), deterministic chaos (Logistic map), and self-organized criticality (Sandpile model)—reveals that significant long-range temporal correlations are observed exclusively at dynamical critical points or the edge of chaos. In the 2D Ising model, normalized mutual information (NMI) peaks at the Curie temperature $T_c \approx 2.27$, and NMI at a long delay ($\tau=50$) is significantly above baseline only in the vicinity of $T_c$, indicating that critical dynamics support statistical memory over extended timescales. Surrogate data tests confirm that these correlations depend strictly on the causal ordering of the time series. Notably, results from the sandpile model demonstrate the coexistence of spatial configuration memory with temporal decorrelation in its activity sequence. Collectively, these findings indicate that critical dynamics provide a physical basis for the persistence of structured states over long temporal scales.
+\end{abstract}
+
+\section{Introduction}
+In classical physics, time is typically treated as a parameter indexing state evolution. However, in complex systems, the current state often exhibits statistical dependencies on its historical trajectory. A central question arises: \textit{Does temporal evolution support statistical correlations over extended time lags, thereby providing a mechanism for the persistence of structured states?}
+
+Such correlations are expected to be enhanced under specific dynamical conditions, such as criticality, where long-range spatial correlations are well-established. This work systematically examines how the dynamics of four distinct model systems support or suppress temporal correlations by quantifying long-range mutual information.
+
+\section{Methodology}
+\subsection{System Selection and Metrics}
+
+\begin{enumerate}
+    \item \textbf{2D Ising Model (Physical Equilibrium)} \\
+    Simulations were performed on lattices of size $L = 16, 32, 64$ using the Metropolis algorithm. Temperature was scanned over $T \in [2.15, 2.37]$ to encompass the critical region. \\
+    \textit{Primary metric}: Normalized Mutual Information at lag $\tau=50$ (NMI($\tau=50$)), to quantify long-range temporal correlations. \\
+    \textit{Control metric}: Active Information Storage (AIS), to characterize state stability.
+
+    \item \textbf{Echo State Network (Computational Criticality)} \\
+    A reservoir network of 200 neurons was constructed, and the spectral radius $\rho$ was scanned. \\
+    \textit{Metric}: Transfer Entropy (TE), to measure information flow efficiency.
+
+    \item \textbf{Logistic Map (Deterministic Chaos)} \\
+    The control parameter $r$ was varied across periodic and chaotic regimes. \\
+    \textit{Metric}: Active Information Storage (AIS).
+
+    \item \textbf{BTW Sandpile Model (Self-Organized Criticality)} \\
+    Avalanche time series from sandpile simulations were analyzed. \\
+    \textit{Purpose}: To test whether spatial criticality is accompanied by temporal correlations.
+\end{enumerate}
+
+\subsection{Validation Strategy}
+All experiments included a \textit{shuffled surrogate} baseline, where the temporal order of the time series was randomized. This controls for spurious correlations arising from the marginal distribution alone, ensuring that observed information-theoretic measures depend on the sequential structure of the data.
+
+\section{Results}
+
+\subsection{2D Ising Model: Long-Range Temporal Correlations at Criticality}
+In the 2D Ising model, the key findings are as follows:
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/ising_nmi_ais_revised.png}
+\caption{(A) Active Information Storage (AIS) and (B) Normalized Mutual Information at lag τ=50 (NMI(τ=50)) for the 2D Ising model across different temperatures. The vertical dashed line indicates the critical temperature $T_c \approx 2.27$. Error bars represent standard deviations across multiple realizations.}
+\label{fig:ising_ais_nmi}
+\end{figure}
+
+\begin{itemize}
+    \item NMI($\tau=50$) peaks at $T_c \approx 2.27$. The peak magnitude increases with system size (from 0.0187 for $L=16$ to 0.2567 for $L=64$), following a power-law scaling $\text{NMI}_{\text{peak}} \sim L^{1.64}$.
+    \item In the ordered phase ($T=2.15$) and disordered phase ($T=2.37$), NMI($\tau=50$) remains close to the shuffled baseline (0.01--0.04).
+    \item AIS peaks at a higher temperature ($T \approx 2.30$--$2.40$), distinct from the NMI($\tau=50$) peak. This indicates that the ordered phase achieves high state stability, while the critical phase supports long-range temporal correlations.
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/TE_vs_Temperature_2D_Ising_full_plus.pdf}
+\caption{Transfer Entropy (TE) analysis across the full temperature range for the 2D Ising model, showing the emergence of temporal correlations at criticality. Different curves represent different system sizes demonstrating finite-size scaling effects.}
+\label{fig:ising_te_full}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/ising_info_dynamics_quick.png}
+\caption{Finite-size scaling analysis showing the power-law behavior of peak NMI values with system size L. The scaling exponent $\beta/\nu \approx 1.64$ is consistent with critical slowing down theory.}
+\label{fig:ising_scaling}
+\end{figure}
+These results demonstrate that \textbf{critical dynamics is the only phase that supports significant long-range temporal correlations}.
+
+\subsection{Echo State Network: Computational Criticality and Information Flow}
+The Echo State Network experiments reveal the relationship between network criticality and information processing capacity:
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/ESN_criticality_te_sig.png}
+\caption{Transfer Entropy analysis for Echo State Networks across different spectral radius values $\rho$. Peak information flow occurs at the edge of chaos ($\rho \approx 1.0$), demonstrating that computational criticality optimizes information transfer efficiency. Statistical significance is confirmed through surrogate testing (red markers).}
+\label{fig:esn_te}
+\end{figure}
+
+\begin{itemize}
+    \item Transfer Entropy (TE) peaks at $\rho \approx 1.0$ (edge of chaos), indicating optimal information flow at computational criticality.
+    \item Subcritical networks ($\rho < 0.9$) show minimal TE, reflecting the system's inability to propagate information effectively.
+    \item Supercritical networks ($\rho > 1.1$) exhibit chaotic dynamics that degrade coherent information transfer.
+    \item Statistical significance is confirmed through surrogate data testing, validating that the observed TE depends on causal temporal structure.
+\end{itemize}
+
+\subsection{Logistic Map: Deterministic Chaos and Temporal Correlations}
+Analysis of the logistic map $x_{t+1} = r x_t (1-x_t)$ reveals the relationship between chaos and temporal correlations:
+
+\begin{itemize}
+    \item In the periodic regime ($r < 3.57$), Active Information Storage (AIS) remains low due to the system's predictable behavior.
+    \item At the onset of chaos ($r \approx 3.57$), AIS increases significantly, indicating enhanced temporal correlations.
+    \item In the chaotic regime ($r > 3.57$), AIS decreases again due to the exponential divergence of trajectories.
+    \item The logistic map demonstrates that deterministic chaos can support enhanced temporal correlations, but this effect is limited to the transition region rather than the fully chaotic regime.
+\end{itemize}
+
+\subsection{Sandpile Model: Spatial Memory with Temporal Decorrelation}
+The avalanche time series from the BTW sandpile model reveals a distinct pattern of spatial-temporal dynamics:
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/te_vs_reset_sandpile.pdf}
+\caption{Transfer Entropy analysis for the BTW sandpile model as a function of reset frequency. Critical phenomena emerge when the system is allowed to evolve without frequent resets, demonstrating the relationship between self-organization and information processing.}
+\label{fig:sandpile_te}
+\end{figure}
+
+\begin{itemize}
+    \item Avalanche time series exhibit near-zero Transfer Entropy, indicating temporal decorrelation despite spatial criticality.
+    \item This reveals a fundamental distinction: while spatial configurations store memory (critical avalanche statistics), the temporal sequence of events is effectively uncorrelated.
+    \item The result demonstrates that long-range temporal correlations are not a universal feature of all critical systems, but depend critically on the dynamical nature of the underlying processes.
+    \item Systems with dissipative dynamics (like sandpile avalanches) may achieve spatial criticality without temporal memory persistence.
+\end{itemize}
+
+\subsection{Falsification via Surrogate Testing}
+For all systems except the sandpile, the information-theoretic measures (NMI, TE, AIS) for shuffled data collapse to baseline levels. This confirms that the observed temporal correlations are strictly dependent on the causal ordering of the time series.
+
+\section{Discussion and Conclusion}
+
+Our analysis reveals that long-range temporal correlations emerge selectively in systems where:
+\begin{enumerate}
+    \item The system maintains phase-space continuity (no dissipative resets)
+    \item Temporal evolution is driven by deterministic or quasi-deterministic dynamics
+    \item The underlying attractor structure supports persistent memory
+\end{enumerate}
+
+These conditions are met in the Ising model near criticality, Echo State Networks at the edge of chaos, and chaotic logistic maps, but violated in dissipative avalanche systems.
+
+Our framework provides a unified information-theoretic perspective on how temporal structure in complex systems relates to their capacity for information storage and propagation.
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

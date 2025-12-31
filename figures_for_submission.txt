@@ -1,0 +1,43 @@
+# 可能包含在论文中的图表文件清单
+
+## Ising模型相关图表
+- 1Dising_glauber_T0.1_L128_revised.png
+- 2D_ising_Wolff_L32.png
+- 2D_ising_results.png
+- 2D_ising_tau_proxy_1.pdf
+- 2D_ising_tau_proxy_2.pdf
+- ising1d_glauber_T1.5_L128.png
+- ising2D_wolff_T2.269_size32_runs10.png
+- ising2D_wolff_multiT_size32_runs10.png
+- ising_universality_fit.png
+- ising_universality_test-1.png
+- ising_multi_proxy_L16_steps15000.png
+
+## 信息动力学相关图表
+- mi_comparison.png
+- mi_comparison_phase2.png
+- ais_comparison.png
+
+## 量子系统相关图表
+- quan_poly_tau_proxy.png
+- quan_poly_tau_proxy_avg.png
+- quan_poly_tau_proxy_new.png
+- quan_poly_tau_proxy-1.pdf
+- quan_poly_tau_proxy-2.pdf
+- quan_poly_tau_proxy-3.pdf
+- lindblad_tao_collapse.pdf
+- lindblad_tao_collapse-1.pdf
+- lindblad_tao_results.png
+
+## 宇宙学相关图表
+- cmb_Planck_comparison.png
+- grid_comparison.png
+
+## 输出文件夹中的关键图表
+- comparison_plot.png (Ising模型对比)
+- ising_E_t.png (Ising模型能量演化)
+- ising_E_tau.png (Ising模型对数时间能量演化)
+- ca_C_t.png (元胞自动机复杂度)
+- ca_C_tau.png (元胞自动机对数时间复杂度)
+- tfim_S_t.png (横向场Ising模型熵演化)
+- tfim_S_tau.png (横向场Ising模型对数时间熵演化)

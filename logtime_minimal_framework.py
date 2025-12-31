@@ -194,13 +194,13 @@ def run_tfim(params: TFIMParams, outdir: str):
             ops[i] = op
             result = tensor(ops)
             if sparse:
-                result = result.to('csr')  # 转换为稀疏矩阵表示
+                result = result.to('csr')  # Convert to sparse matrix representation
             return result
 
-        # 正确初始化H，使其与pauli函数返回的矩阵具有相同维度
+        # Properly initialize H with the same dimensions as matrices returned by pauli function
         # H = 0 * pauli(sigmaz(), 0, params.N)
-        # 在run_tfim函数中添加稀疏矩阵选项
-        H = 0 * pauli(sigmaz(), 0, params.N, sparse=True)  # 启用稀疏表示
+        # Add sparse matrix option in run_tfim function
+        H = 0 * pauli(sigmaz(), 0, params.N, sparse=True)  # Enable sparse representation
         for i in range(params.N - 1):
             H += params.J * pauli(sigmaz(), i, params.N, sparse=True) * pauli(sigmaz(), i + 1, params.N, sparse=True)
         for i in range(params.N):
@@ -212,23 +212,23 @@ def run_tfim(params: TFIMParams, outdir: str):
         # Neel-like product state
         psi0 = tensor([basis(2, 0) if (i % 2 == 0) else basis(2, 1) for i in range(params.N)])
 
-        # 确保H是稀疏矩阵
+        # Ensure H is a sparse matrix
         H = H.to('csr')
         res = mesolve(H, psi0, tlist, [], [])
         S_t = []
         Mz_t = []
         A = list(range(params.N // 2))
         for state in res.states:
-            # 计算纠缠熵 - 使用partial trace
+            # Calculate entanglement entropy - using partial trace
             rho_A = state.ptrace(A)
             S_t.append(float(entropy_vn(rho_A)))
 
-            # 计算磁化强度 - 使用expect函数更高效
+            # Calculate magnetization - using expect function is more efficient
             mz = 0.0
             for i in range(params.N):
-                # 创建单个位置的sigmaz算符
+                # Create sigmaz operator for a single site
                 sz_op = pauli(sigmaz(), i, params.N, sparse=True)
-                # 使用expect函数计算期望值
+                # Calculate expectation value using expect function
                 mz += expect(sz_op, state)
             Mz_t.append(mz / params.N)
 
@@ -338,13 +338,13 @@ def run_ising(params: IsingParams, outdir: str):
     series_t = []
 
     for r in range(params.n_real):
-        # 使用0和1初始化，然后进行位压缩存储（8x内存节省）
+        # Initialize with 0 and 1, then use bit packing for storage (8x memory saving)
         initial_state = rng.choice([0, 1], size=(params.L, params.L)).astype(np.uint8)
-        spins_packed = np.packbits(initial_state, axis=None)  # 位压缩
+        spins_packed = np.packbits(initial_state, axis=None)  # Bit packing
         
-        # 解压缩并转换为-1和1表示
+        # Unpack and convert to -1 and 1 representation
         spins = np.unpackbits(spins_packed).reshape((params.L, params.L)).astype(np.int8)
-        spins[spins == 0] = -1  # 将0转换为-1
+        spins[spins == 0] = -1  # Convert 0 to -1
         # burn-in
         for _ in range(params.burn_in):
             metropolis_sweep(spins, beta, rng)

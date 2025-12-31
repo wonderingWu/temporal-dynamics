@@ -1,0 +1,3 @@
+        model   N    T  trials  bins  tau_max  steps  data_shape  mean_magnetization  mean_density
+0       ising  10  1.0      15     8       20   2000  (15, 2000)           -0.059807           NaN
+1  ca_rule110  50  NaN      12     8       20    500   (12, 500)                 NaN       0.56709

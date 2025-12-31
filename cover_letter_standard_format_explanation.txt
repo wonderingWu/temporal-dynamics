@@ -1,0 +1,42 @@
+# 学术投稿Cover Letter标准格式说明
+
+## 当前格式说明
+
+您看到的cover letter格式是学术期刊投稿的标准格式，具体包括：
+
+1. **作者联系信息** (第1-9行)
+   - 姓名：Zhiyu Qiu
+   - 职称：Associate Professor
+   - 单位：Hebei Normal University
+   - 部门：Department of Computer Science
+   - 城市：Shijiazhuang
+   - 省份/邮编：Hebei, 050024
+   - 国家：China
+   - 邮箱：qzy@mail.hebtu.edu.cn
+   - 电话：+86 139 3188 8701
+
+2. **日期** (第10行)
+   - Dec 11, 2025
+
+3. **收件人信息** (第12-16行)
+   - 收件部门：Editorial Office
+   - 期刊名称：Physical Review E
+   - 出版社：American Physical Society
+   - 地址：Ridge, NY 11961
+   - 国家：USA
+
+4. **正文开头** (第18行)
+   - Dear Editor,
+
+## 格式合理性解释
+
+这种格式是学术期刊投稿的国际标准，原因如下：
+
+1. **正式性**：学术投稿需要正式的商务信函格式，包含完整的发件人和收件人信息
+2. **可追踪性**：完整的联系信息确保期刊能够轻松与您取得联系
+3. **专业性**：符合国际学术出版的惯例，展现作者的专业素养
+4. **期刊要求**：大多数学术期刊（包括Physical Review系列）都要求使用这种标准格式
+
+## 如果您仍然希望修改
+
+如果您坚持希望调整格式，我可以为您提供一个简化版本，但建议保留标准格式以确保符合期刊要求。
