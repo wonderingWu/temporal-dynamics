@@ -1,130 +1,167 @@
-# log_time_model
+# Temporal Dynamics in Complex Systems: Information-Theoretic Analysis
 
 ## 项目概述
 
-本项目实现了一个基于对数时间（logarithmic time）的分析框架，用于研究复杂系统的演化行为。通过将传统线性时间 `t` 转换为对数时间 `τ = ln(t/t₀)`，可以更有效地观察系统在不同时间尺度上的动力学特性。
+本项目实现了对复杂系统中临界性、混沌和计算网络的信息论分析框架。通过应用信息论方法（如传递熵、互信息等）来研究多种复杂系统的动力学特性。
 
-项目主要包含以下几个部分：
-- 对数时间变换和等τ重采样方法
-- 多种物理系统的模拟与分析（Ising模型、量子Ising模型、元胞自动机等）
-- 宇宙微波背景（CMB）数据的处理与分析
-- 统一的数据可视化和结果输出系统
+## 核心系统分析
+
+### 1. Echo State Networks (ESN) 临界性分析
+- 分析ESN在临界状态下的信息传递特性
+- 研究传递熵（Transfer Entropy）与系统性能的关系
+- 支持不同临界点检测方法
+
+### 2. 2D Ising 模型信息动力学
+- 基于蒙特卡洛模拟的Ising模型分析
+- 研究临界温度附近的信息传递和存储特性
+- 实现多种信息论指标：传递熵、互信息等
+- 支持不同的重参数化和温度扫描
+
+### 3. Logistic Map 混沌系统分析
+- 分析Logistic映射在混沌区域的动力学特性
+- 研究信息在混沌系统中的传播和衰减
+- 支持不同参数值和初始条件的分析
+
+### 4. Sandpile 模型自组织临界性
+- 分析Abelian Sandpile模型的自组织临界性
+- 研究系统重置与信息传递的关系
+- 探索临界雪崩的时空动力学
+
+## 文件结构
+
+```
+temporal-dynamics/
+├── src/                          # 源代码
+│   ├── main.py                   # 主入口脚本
+│   ├── ESN_criticality_te_fixed.py     # ESN临界性分析
+│   ├── ising_ais_nmi_quick_revised.py  # Ising模型信息论分析
+│   ├── logicMapTest_fixed.py     # Logistic映射分析
+│   ├── sandpile_critical_time_analysis.py    # 沙堆模型分析
+│   └── sandpile_reset_vs_te.py   # 沙堆重置分析
+├── docs/                         # 文档
+│   └── temporalDynamics.tex      # LaTeX论文
+├── figures/                      # 结果图表
+│   ├── ESN_criticality_te_sig.png      # ESN临界性结果
+│   ├── TE_vs_Temperature_2D_Ising_full_plus.pdf  # Ising模型传递熵
+│   ├── ising_info_dynamics_quick.png   # Ising信息动力学
+│   ├── ising_nmi_ais_revised.png       # Ising模型NMI结果
+│   ├── ising_shuffing_nmi_micro.png    # Ising洗牌分析
+│   └── te_vs_reset_sandpile.pdf        # 沙堆传递熵结果
+├── tests/                        # 测试文件
+│   ├── __init__.py
+│   └── test_basic.py
+├── .github/                      # GitHub配置
+│   ├── ISSUE_TEMPLATE/
+│   │   └── bug_report.yml
+│   └── workflows/
+│       └── ci.yml
+├── setup.py                      # 项目配置
+├── requirements.txt              # 依赖包
+├── LICENSE                       # 开源协议
+└── README.md                     # 项目说明
+```
 
 ## 安装指南
 
-### 依赖环境
-- Python 3.8+（推荐3.10+）
-- 所需Python库：
-  ```
-  requests>=2.31.0
-  pandas>=2.2.2
-  numpy>=1.26.4
-  matplotlib>=3.8.4
-  astropy>=6.0.0
-  ```
-  可选依赖：
-  ```
-  numba>=0.59.0  # 用于加速计算
-  qutip>=4.7.5   # 用于量子系统模拟
-  ```
+### 环境要求
+- Python 3.8+
+- 主要依赖包：
+  - numpy >= 1.26.4
+  - matplotlib >= 3.8.4
+  - scipy >= 1.11.0
+  - pandas >= 2.2.2
 
 ### 安装步骤
-1. 克隆本仓库：
+1. 克隆仓库：
    ```bash
-   git clone https://github.com/wonderingWu/log_time_model.git
-   cd log_time_model/regen_all
+   git clone https://github.com/wonderingWu/temporal-dynamics.git
+   cd temporal-dynamics
    ```
+
 2. 安装依赖：
    ```bash
    pip install -r requirements.txt
    ```
 
+3. 安装JIDT (Java Information Dynamics Toolkit)：
+   ```bash
+   python download_jar.py
+   ```
+
 ## 使用方法
 
-### 核心框架
-```python
-python logtime_minimal_framework.py --all  # 运行所有示例
+### 快速开始
+```bash
+# 运行所有系统的分析
+python src/main.py --all
+
+# 运行特定系统的分析
+python src/main.py --system esn      # ESN临界性分析
+python src/main.py --system ising    # Ising模型分析
+python src/main.py --system logistic # Logistic映射分析
+python src/main.py --system sandpile # 沙堆模型分析
 ```
 
-### 特定系统分析
-```python
-# Ising模型分析
-python logtime_minimal_framework.py --ising --ising-L 64 --ising-steps 200000 \
-       --ising-burn 100000 --ising-thin 200 --n-real 10 --seed 123
+### 高级选项
+```bash
+# ESN分析示例
+python src/main.py --system esn --nodes 100 --connectivity 0.1 --spectral_radius 0.9
 
-# 元胞自动机分析
-python logtime_minimal_framework.py --ca --ca-rule 30 110 --ca-size 256 \
-       --ca-steps 4000 --ca-window-rows 256 --n-real 8 --seed 42
+# Ising模型分析示例
+python src/main.py --system ising --size 32 --temperature 2.269 --steps 100000
 
-# 量子Ising模型分析
-python logtime_minimal_framework.py --tfim --tfim-N 8 --tfim-tmax 20 --n-real 10
-
-# 宇宙学数据分析
-python cosmology_analysis.py --experiment Planck
+# 沙堆模型分析示例
+python src/main.py --system sandpile --size 64 --avalanches 1000
 ```
 
-### 数据可视化
-```python
-# 生成Ising模型能量演化对比图
-python ising_comparison.py
+## 核心算法
+
+### 1. 信息论分析
+- **传递熵 (Transfer Entropy)**: 测量系统间的信息传递
+- **互信息 (Mutual Information)**: 量化变量间的相关性
+- **主动信息存储 (Active Information Storage)**: 评估系统的记忆特性
+
+### 2. 临界性检测
+- **有限尺度标度分析**: 确定临界参数
+- **临界指数计算**: 量化相变的性质
+- **有限时间标度**: 分析接近临界的动力学
+
+### 3. 混沌系统分析
+- **Lyapunov指数**: 量化混沌强度
+- **信息维度**: 描述吸引子的几何性质
+- **熵生成率**: 测量信息产生速率
+
+## 主要结果
+
+### ESN临界性
+![ESN Criticality](figures/ESN_criticality_te_sig.png)
+ESN在临界谱半径附近展现出最优的信息传递特性。
+
+### Ising模型信息动力学
+![Ising Information Dynamics](figures/ising_info_dynamics_quick.png)
+临界温度下Ising模型的信息传递和存储达到峰值。
+
+### 沙堆模型自组织临界性
+![Sandpile Criticality](figures/te_vs_reset_sandpile.pdf)
+自组织临界系统中重置机制对信息传递的影响。
+
+## 贡献
+
+欢迎提交Issue和Pull Request来改进这个项目！
+
+## 许可证
+
+本项目采用MIT许可证 - 详见 [LICENSE](LICENSE) 文件。
+
+## 引用
+
+如果您在研究中使用了这个项目，请引用我们的论文：
+
+```latex
+\textbf{Code and data available at:} \url{https://github.com/wonderingWu/temporal-dynamics}
 ```
 
-## 文件结构
+## 联系方式
 
-```
-regen_all/
-├── cosmology_analysis.py   # 宇宙学数据分析脚本
-├── ising_comparison.py     # Ising模型对比分析
-├── logtime_minimal_framework.py  # 对数时间框架核心脚本
-├── out/                    # 输出文件夹
-│   ├── ca/                 # 元胞自动机结果
-│   ├── cosmology/          # 宇宙学分析结果
-│   ├── ising/              # Ising模型结果
-│   └── tfim*/              # 量子Ising模型结果
-├── README.md               # 项目说明文档
-└── requirements.txt        # 依赖库列表
-```
-
-## 功能详情
-
-### 对数时间框架
-- 实现了一致的对数时间变换 `τ = ln(t/t₀)`
-- 支持等τ重采样方法，确保在对数时间尺度上均匀采样
-- 提供鲁棒的参数化指标：总变差(TV)、平面弧长、曲率积分等
-- 支持多次实现、随机种子控制和置信区间聚合
-
-### Ising模型分析
-- 2D Ising模型的蒙特卡洛模拟
-- 支持Burn-in、 thinning和多次实现平均
-- 能量和方差演化的线性时间与对数时间对比
-- 自动生成对比图表和数据文件
-
-### 宇宙学数据分析
-- 支持Planck卫星观测数据加载
-- 支持LiteBIRD和CMB-S4等未来实验的模拟数据
-- 当astropy库不可用时，提供模拟数据作为后备
-- 生成CMB功率谱比较图表
-
-### 元胞自动机分析
-- 支持Rule 30和Rule 110元胞自动机
-- 位压缩窗口实现，提高计算效率
-- 集成LZ78复杂度估计器
-
-## 示例结果
-
-### Ising模型能量演化对比
-![Ising模型能量演化](out/ising/comparison_plot.png)
-
-### CMB功率谱比较
-![CMB功率谱](out/cosmology/cmb_Planck_comparison.png)
-
-## 注意事项
-- 部分功能需要可选依赖库（如qutip用于量子系统模拟）
-- 大数据集处理可能需要较长计算时间，请合理设置参数
-- 如需更改输出路径或其他高级设置，请修改源码中的相应部分
-
-## 未来工作
-- 添加更多物理系统的支持（如XY模型、 Heisenberg模型等）
-- 优化大数据集的处理效率
-- 实现更复杂的对数时间变换方法
-- 增加机器学习辅助分析功能
+- 项目主页: https://github.com/wonderingWu/temporal-dynamics
+- 问题反馈: https://github.com/wonderingWu/temporal-dynamics/issues
