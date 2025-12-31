@@ -1,28 +1,30 @@
-\documentclass[10pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{amsmath, amssymb}
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
 \usepackage{graphicx}
-\usepackage{booktabs}
-\usepackage{caption}
-\usepackage{setspace}
-\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{url}
 \usepackage{natbib}
-\usepackage{microtype}
+\usepackage{cite}
+\usepackage{standalone}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{fancyhdr}
 
-\geometry{a4paper, margin=2.5cm}
-\onehalfspacing
+\title{Temporal Dynamics in Complex Systems: Information-Theoretic Analysis of Criticality, Chaos, and Computational Networks}
 
-\title{Temporal Dynamics as a Mechanism for Propagating Structured States: Evidence from Criticality, Chaos, and Computational Systems}
-\author{}
-\date{}
+\author{Author Name, Department, Institution, email@institution.edu}
+
+\date{\today}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-    This study investigates the role of temporal evolution in complex dynamical systems through an information-theoretic lens. We quantify the capacity of different systems to sustain statistical dependencies over extended time lags, with a focus on long-range temporal correlations. Analysis of four canonical systems—physical equilibrium (2D Ising model), computational criticality (Echo State Networks), deterministic chaos (Logistic map), and self-organized criticality (Sandpile model)—reveals that significant long-range temporal correlations are observed exclusively at dynamical critical points or the edge of chaos. In the 2D Ising model, normalized mutual information (NMI) peaks at the Curie temperature $T_c \approx 2.27$, and NMI at a long delay ($\tau=50$) is significantly above baseline only in the vicinity of $T_c$, indicating that critical dynamics support statistical memory over extended timescales. Surrogate data tests confirm that these correlations depend strictly on the causal ordering of the time series. Notably, results from the sandpile model demonstrate the coexistence of spatial configuration memory with temporal decorrelation in its activity sequence. Collectively, these findings indicate that critical dynamics provide a physical basis for the persistence of structured states over long temporal scales.
+This study investigates temporal dynamics in complex systems through an information-theoretic framework, analyzing four distinct systems: the 2D Ising model at criticality, Echo State Networks at the edge of chaos, chaotic logistic maps, and the BTW sandpile model exhibiting self-organized criticality. Using mutual information (NMI), transfer entropy (TE), and active information storage (AIS), we quantify temporal correlations and information propagation across these systems. Our results reveal that long-range temporal correlations emerge selectively in systems maintaining phase-space continuity and deterministic dynamics, while dissipative systems like the sandpile model show minimal temporal information transfer despite spatial critical behavior. These findings establish a unified framework for understanding how temporal structure in complex systems relates to their capacity for information storage and propagation.
+
+\textbf{Code and data available at:} \url{https://github.com/wonderingWu/temporal-dynamics}
+
 \end{abstract}
 
 \section{Introduction}
